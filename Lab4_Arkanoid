@@ -141,7 +141,9 @@ checkgenerate:
     mov xTemp,ah 
 
     xor dx,dx
-    xor bx,bx      
+    xor bx,bx  
+mov vx,1
+mov xtemp,1    
     mov ax,0C00h 
     int 21h             
 
@@ -222,7 +224,7 @@ newPos:
     cmp dl,leftRangePlatf
     jl checkX1
     cmp dl,rightRangePlatf 
-    jge checkX2 
+    jg checkX1 
     cmp dh,yRange  
     je reboundPlatform   
            
@@ -386,7 +388,6 @@ rightProc proc
    add dl,1
    mov leftRangePlatf,dl 
       
-;   jmp exitFromFun
    mov ah,2
    mov dh,yRange
    mov dl,leftRangePlatf
@@ -408,7 +409,7 @@ rightProc proc
    call writeChars  
    
    add rightRangePlatf,1    
-    cmp rightRangePlatf,79
+   cmp rightRangePlatf,79
    jge addLength       
    mov ah,2
    mov dl,rightRangePlatf
@@ -419,14 +420,14 @@ rightProc proc
    call writeChars  
    
    add rightRangePlatf,1
-     jmp exitFromFun
+   jmp exitFromFun
   addlength:  
-  dec  leftRangePlatf
+   dec  leftRangePlatf
    mov ah,2
    mov dh,yRange
    mov dl,leftRangePlatf
    int 10h      
-    mov al,' '
+   mov al,' '
    mov bl,16
    call writeChars 
   exitFromFun:                      
@@ -512,6 +513,7 @@ reboundPlatformProc proc
     neg naprX  
     add dl,naprX
     jmp write  
+    
     nextCheckAfterPlatf:
     cmp dl,78
     jle write
@@ -729,9 +731,13 @@ pusha
     mov px,dl 
     mov py,dh  
     
-     mov ah,8
+    mov ah,8
     int 10h
-    
+    add dl,naprX    
+    add dl,naprX
+    mov px,dl 
+    mov py,dh 
+     
     cmp ah,16
     jl game
     cmp dh,3
