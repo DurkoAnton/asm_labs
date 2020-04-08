@@ -142,8 +142,7 @@ checkgenerate:
 
     xor dx,dx
     xor bx,bx  
-mov vx,1
-mov xtemp,1    
+    
     mov ax,0C00h 
     int 21h             
 
